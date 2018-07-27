@@ -1,8 +1,6 @@
 #!/bin/bash
 # set -x
 
-git submodule update --init --recursive
-
 PLATFORM=`uname -m`"_"`uname -s`
 
 error () {
@@ -14,7 +12,6 @@ error () {
 # make c compiler
 echo "Making CC for ${PLATFORM} .."
 cd compiler || exit 1
-make clean > ../build.log || exit 1
 make "ARCH=${PLATFORM}" all >> ../build.log || error
 cd .. || exit 1
 

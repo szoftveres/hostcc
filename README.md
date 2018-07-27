@@ -3,7 +3,7 @@ Native C-like compiler
 Uses [mcc](https://github.com/szoftveres/mcc).
 
 ```
-./b ./unix_prog.c
+./b ./program.c
 echo -n Hello World | ./program.bin /bin/ls -l
 ```
 See [x86_64_Linux/header.s](https://github.com/szoftveres/hostcc/blob/master/compiler/arch/x86_64_Linux/header.s) for implemented system calls,
