@@ -9,20 +9,8 @@ fibonacci (n) {
 }
 
 
-main (argc, argv) {
-    auto i;
+execute (argv) {
     auto c;
-
-    puts("Hello World!\n");
-    puts("argc: "); putd(argc); puts("\n");
-
-    for (i = 0; i != argc; i += 1) {
-        puts("argv[");
-        putd(i);
-        puts("]: ");
-        puts(getarg(argv, i));
-        puts("\n");
-    }
 
     c = fork();
     if (c) {
@@ -39,6 +27,28 @@ main (argc, argv) {
         puts(getarg(argv, 1));
         puts("]\n");
         exit(1);
+    }
+
+}
+
+
+main (argc, argv) {
+    auto i;
+    auto c;
+
+    puts("Hello World!\n");
+    puts("argc: "); putd(argc); puts("\n");
+
+    for (i = 0; i != argc; i += 1) {
+        puts("argv[");
+        putd(i);
+        puts("]: ");
+        puts(getarg(argv, i));
+        puts("\n");
+    }
+
+    if (argc >= 2) {
+        execute(argv);
     }
 
     for (i = 0; i != 100; i += 1) {
