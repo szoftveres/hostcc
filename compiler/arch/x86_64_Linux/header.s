@@ -64,6 +64,18 @@ _start:                         # call main function then exit
 .endm
 
 
+.macro SYSCALL_FUNC_6 callnr
+    mov     0x08(%rsp), %r9
+    mov     0x10(%rsp), %r8 # this order is not a typo
+    mov     0x18(%rsp), %r10
+    mov     0x20(%rsp), %rdx
+    mov     0x28(%rsp), %rsi
+    mov     0x30(%rsp), %rdi
+    mov     \callnr, %rax
+    syscall
+    ret
+.endm
+
 # read (fd, buf, count)
 read:
     SYSCALL_FUNC_3 $0
@@ -103,5 +115,13 @@ exit:
 # wait4 (pid, stat, options, rusage)
 wait4:
     SYSCALL_FUNC_4 $61
+
+# mmap(addr, length, prot, flags, fd, offset)
+mmap:
+    SYSCALL_FUNC_6 $9
+
+# munmap(addr, length)
+munmap:
+    SYSCALL_FUNC_2 $11
 
 ## --------------------------End of header---------------------------

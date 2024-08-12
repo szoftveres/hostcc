@@ -2,6 +2,13 @@
 #define MINUS_ONE   (0xFFFFFFFF)
 #define EOF         MINUS_ONE
 
+#define PROT_READ        (0x1)
+#define PROT_WRITE       (0x2)
+
+#define MAP_PRIVATE      (0x02)
+#define MAP_ANONYMOUS    (0x20)
+
+
 /* Get argument */
 getargaddr (argv, arg) {
     argv + (arg * sizeof());
@@ -66,6 +73,27 @@ wait (status_p) {
 
 execv (path, argv) {
     execve(path, argv, NULL);
+}
+
+malloc (size) {
+    auto p;
+    p = mmap(NULL, size,
+         PROT_READ | PROT_WRITE,
+         MAP_PRIVATE | MAP_ANONYMOUS, MINUS_ONE, 0);
+    p < 0 ? 0 : p;
+}
+
+free (p) {
+    munmap(p, 0);
+}
+
+
+memset (addr, value, length) {
+    while ((length >= 0) & length) {
+        *(addr) = value;
+        length -= 8;
+        addr += 8;
+    }
 }
 
 /*

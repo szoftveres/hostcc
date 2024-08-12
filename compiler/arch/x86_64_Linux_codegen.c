@@ -256,13 +256,19 @@ void CODE_do_operation_sub (void) {
 void CODE_do_operation_shl (int lbl) {
     print_debugs(__FUNCTION__);
     CODE_operand_pop();
-    fprintf(stdout, "    shl  %%rbx, %%rax\n");
+    fprintf(stdout, "    push %%rcx\n");
+    fprintf(stdout, "    mov  %%bl, %%cl\n");
+    fprintf(stdout, "    shl  %%cl, %%rax\n");
+    fprintf(stdout, "    pop  %%rcx\n");
 }
 
 void CODE_do_operation_shr (int lbl) {
     print_debugs(__FUNCTION__);
     CODE_operand_pop();
-    fprintf(stdout, "    shr  %%rbx, %%rax\n");
+    fprintf(stdout, "    push %%rcx\n");
+    fprintf(stdout, "    mov  %%bl, %%cl\n");
+    fprintf(stdout, "    shr  %%cl, %%rax\n");
+    fprintf(stdout, "    pop  %%rcx\n");
 }
 
 
