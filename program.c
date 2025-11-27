@@ -1,6 +1,7 @@
 #include "unix_std.c"
 
 
+
 fibonacci (n) {
     if (n < 2) {
         return n;
@@ -9,71 +10,30 @@ fibonacci (n) {
 }
 
 
-execute (argv) {
-    auto c;
-
-    c = fork();
-    if (c) {
-        auto code;
-        code = 0;
-        puts("parent: waiting\n");
-        waitpid(c, &code);
-        puts("parent: child exited with code (");
-        putd(code / 256);
-        puts(")\n");
-    } else {
-        execv(getarg(argv, 1), getargaddr(argv, 1));
-        puts("child: error, could not execute [");
-        puts(getarg(argv, 1));
-        puts("]\n");
-        exit(1);
-    }
-
-}
-
 
 main (argc, argv) {
     auto i;
     auto c;
+    auto i_p;
 
-    puts("Hello World!\n");
-    puts("argc: "); putd(argc); puts("\n");
-
-    for (i = 0; i != argc; i += 1) {
-        puts("argv[");
-        putd(i);
-        puts("]: ");
-        puts(getarg(argv, i));
-        puts("\n");
+    for (i = 0; i != 20; i += 1) {
+        puts("For World!  "); putd(fibonacci(i)); puts("\n");
     }
 
-    if (argc >= 2) {
-        execute(argv);
-    }
-
-    for (i = 0; i != 100; i += 1) {
-        switch (i) {
-          case 30:
-          case 32:
-          case 34:
-          case 36:
-          case 38:
-          case 40:
-            puts("fibonacci(");
-            putd(i);
-            puts(") = ");
-            putd(fibonacci(i));
-            puts("\n");
+    i_p = &i;
+    i = 0;
+    *i_p = 10;
+    while (i) {
+        switch (*i_p) {
+          case 3:
+          case 6:
+            puts("While World! 3,6 "); putd(fibonacci(i)); puts("\n");
+            break;
+          default:
+            puts("While World!  "); putd(fibonacci(i)); puts("\n");
             break;
         }
-    }
-
-    while ((c = getchar()) != EOF) {
-        puts("\'");
-        putchar(c);
-        puts("\' ");
-        putx(c);
-        puts("\n");
+        i -= 1;
     }
 
     0; /* return code of 'main' is the exit code of the program */

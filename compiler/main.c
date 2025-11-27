@@ -3,9 +3,17 @@
 #include "lex.h"
 #include "parser.h"
 
+
+
+static parser_t *parser;
+
+
 int main (int argc, char* argv[]) {
-    lex_init_fd(0, 0);
-    program();
+    parser = parser_create(32);
+
+    program(parser);
+
+    parser_destroy(parser);
     exit(0);
 }
 
