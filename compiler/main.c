@@ -9,7 +9,7 @@ static parser_t *parser;
 
 
 int main (int argc, char* argv[]) {
-    parser = parser_create(32);
+    parser = parser_create(80);
 
     program(parser);
 
